@@ -100,6 +100,7 @@ public class GameWorld {
                 Gdx.app.log("Juego", "high score");
                 currentState = GameState.HIGHSCORE;
             }
+            Assetloader.kill.play();
         }
     }
 

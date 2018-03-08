@@ -20,7 +20,7 @@ public class Assetloader {
     public static Animation birdAnimation;
     public static TextureRegion bird, birdDown, birdUp;
     public static TextureRegion skullUp, skullDown, bar;
-    public static Sound dead, coin, flap;
+    public static Sound dead, coin, flap, kill;
     public static BitmapFont fontText;
     public static Preferences prefs;
 
@@ -33,6 +33,7 @@ public class Assetloader {
         dead = Gdx.audio.newSound(Gdx.files.internal("dead.wav"));
         flap = Gdx.audio.newSound(Gdx.files.internal("flap.wav"));
         coin = Gdx.audio.newSound(Gdx.files.internal("coin.wav"));
+        kill = Gdx.audio.newSound(Gdx.files.internal("kill.mp3"));
         texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         prefs = Gdx.app.getPreferences("SergioGame");
         if (!prefs.contains("highScore")) {
