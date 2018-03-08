@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.sergio.pla.gameWorld.GameRenderer;
 import com.sergio.pla.gameWorld.GameWorld;
 import com.sergio.pla.inputHandler.InputHandler;
+import com.sergio.pla.utils.GameCallBack;
 
 /**
  * @author Sergio Pla
@@ -14,11 +15,15 @@ public class GameScreen implements Screen {
     private GameWorld world;
     private GameRenderer renderer;
     private float runTime;
+    private final GameCallBack callBack;
 
     /**
      * Crea la pantalla de juego
+     *
+     * @param callBack utilidad para usar funciones de android
      */
-    public GameScreen() {
+    public GameScreen(GameCallBack callBack) {
+        this.callBack = callBack;
 
         float screenWidth = Gdx.graphics.getWidth();
         float screenHeight = Gdx.graphics.getHeight();
@@ -53,6 +58,7 @@ public class GameScreen implements Screen {
     @Override
     public void hide() {
         Gdx.app.log("Juego", "hide()");
+        callBack.callBack();
     }
 
     @Override
