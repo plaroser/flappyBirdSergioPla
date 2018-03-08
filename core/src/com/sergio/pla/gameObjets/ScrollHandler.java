@@ -56,7 +56,7 @@ public class ScrollHandler {
         if (pipes[0].isScrolledLeft()) {
             pipes[0].reset(pipes[2].getTailX() + PIPE_GAP);
         } else if (pipes[1].isScrolledLeft()) {
-            pipes[1].reset(pipes[1].getTailX() + PIPE_GAP);
+            pipes[1].reset(pipes[0].getTailX() + PIPE_GAP);
 
         } else if (pipes[2].isScrolledLeft()) {
             pipes[2].reset(pipes[1].getTailX() + PIPE_GAP);
