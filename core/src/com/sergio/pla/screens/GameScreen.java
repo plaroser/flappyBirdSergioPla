@@ -2,6 +2,7 @@ package com.sergio.pla.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.sergio.pla.assetLoader.Assetloader;
 import com.sergio.pla.gameWorld.GameRenderer;
 import com.sergio.pla.gameWorld.GameWorld;
 import com.sergio.pla.inputHandler.InputHandler;
@@ -59,6 +60,7 @@ public class GameScreen implements Screen {
     public void hide() {
         Gdx.app.log("Juego", "hide()");
         callBack.callBack();
+        callBack.setHighScore(Assetloader.getHighScore());
     }
 
     @Override
