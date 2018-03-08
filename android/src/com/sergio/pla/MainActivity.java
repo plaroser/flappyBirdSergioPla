@@ -43,11 +43,12 @@ public class MainActivity extends Activity {
 
         if (prefs.contains(PREF_SOUND)) {
             haySonido = prefs.getBoolean(PREF_SOUND, false);
-        } else {
+            toggleButtonSonido.setChecked(haySonido);
+        } /*else {
             editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
             editor.putBoolean(PREF_SOUND, toggleButtonSonido.isChecked());
             editor.apply();
-        }
+        }*/
 
         final Intent i = new Intent(this, AndroidLauncher.class);
 
@@ -70,7 +71,7 @@ public class MainActivity extends Activity {
     public int getHighScore() {
         db = mDbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
-        if (cursor.moveToFirst()||cursor.getCount() > 0) {
+        if (cursor.moveToFirst() || cursor.getCount() > 0) {
             return cursor.getInt(0);
         } else {
             return 0;
