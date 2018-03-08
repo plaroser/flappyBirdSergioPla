@@ -25,4 +25,9 @@ public class IOSLauncher extends IOSApplication.Delegate implements GameCallBack
     public void callBack() {
         new ExceptionInInitializerError();
     }
+
+    @Override
+    public boolean isSound() {
+        return false;
+    }
 }
