@@ -84,6 +84,7 @@ public class GameWorld {
                 Assetloader.dead.play();
                 hasSound = true;
             }
+            bird.die();
             isAlive = false;
         }
         //Si el pajaro se sale del mundo(muere)
