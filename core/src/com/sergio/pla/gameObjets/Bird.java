@@ -77,7 +77,9 @@ public class Bird {
      */
     public void onClick() {
         if (isAlive()) {
-            Assetloader.flap.play();
+            if (Assetloader.prefs.getBoolean(Assetloader.SOUND)) {
+                Assetloader.flap.play();
+            }
             velocity.y = -100;
         }
     }

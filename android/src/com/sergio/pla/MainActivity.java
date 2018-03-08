@@ -11,7 +11,7 @@ import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
 public class MainActivity extends Activity {
-    public static final String PREF_SONIDO = "sonido";
+    public static final String PREF_SOUND = "sonido";
 
     private Button button1;
     private ToggleButton toggleButtonSonido;
@@ -25,12 +25,12 @@ public class MainActivity extends Activity {
         button1 = findViewById(R.id.button);
         toggleButtonSonido = findViewById(R.id.toggleButtonSonido);
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if (prefs.contains(PREF_SONIDO)) {
-         haySonido = prefs.getBoolean(PREF_SONIDO, true);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if (prefs.contains(PREF_SOUND)) {
+         haySonido = prefs.getBoolean(PREF_SOUND,false);
         }else{
             editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
-            editor.putBoolean(PREF_SONIDO, toggleButtonSonido.isChecked());
+            editor.putBoolean(PREF_SOUND, toggleButtonSonido.isChecked());
             editor.apply();
         }
 
@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
-                editor.putBoolean(PREF_SONIDO, toggleButtonSonido.isChecked());
+                editor.putBoolean(PREF_SOUND, toggleButtonSonido.isChecked());
                 editor.apply();
             }
         });

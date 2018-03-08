@@ -7,12 +7,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.sergio.pla.utils.GameCallBack;
 
 /**
  * Sergio Pla
  */
 public class Assetloader {
-    public static final String HIGH_SCORE = "highScore";
+    public static final String HIGH_SCORE = "highScore", SOUND = "sound";
     public static Texture texture;
     public static TextureRegion bg, grass;
 
@@ -23,10 +24,11 @@ public class Assetloader {
     public static BitmapFont fontText;
     public static Preferences prefs;
 
+
     /**
      * Carga todas las texturas en el programa
      */
-    public static void load() {
+    public static void load(GameCallBack callBack) {
         texture = new Texture(Gdx.files.internal("texture.png"));
         dead = Gdx.audio.newSound(Gdx.files.internal("dead.wav"));
         flap = Gdx.audio.newSound(Gdx.files.internal("flap.wav"));
@@ -36,6 +38,10 @@ public class Assetloader {
         if (!prefs.contains("highScore")) {
             prefs.putInteger("highScore", 0);
         }
+        prefs.putBoolean(SOUND, callBack.isSound());
+
+        Gdx.app.log("Pref", "Sonido activado en callBack: " + callBack.isSound());
+        Gdx.app.log("Pref", "Sonido activado en gdx: " + prefs.getBoolean(SOUND));
         bg = new TextureRegion(texture, 0, 0, 136, 43);
         bg.flip(false, true);
 
@@ -83,6 +89,7 @@ public class Assetloader {
 
     /**
      * Establece una nueva puntiacion maxima
+     *
      * @param val puntuacion obtenida
      */
     public static void setHighScore(int val) {
@@ -92,6 +99,7 @@ public class Assetloader {
 
     /**
      * Devuelve la mayor puntuacion maxima
+     *
      * @return Mayor puntuacion maxima
      */
     public static int getHighScore() {

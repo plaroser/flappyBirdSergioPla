@@ -6,5 +6,5 @@ package com.sergio.pla.utils;
 
 public interface GameCallBack {
     void callBack();
-
+    boolean isSound();
 }

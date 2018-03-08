@@ -79,7 +79,9 @@ public class GameWorld {
         //Si el pajaro esta vivo y colisiona
         if (bird.isAlive() && scrollHandler.collides(bird)) {
             scrollHandler.stop();
-            Assetloader.dead.play();
+            if (Assetloader.prefs.getBoolean(Assetloader.SOUND)) {
+                Assetloader.dead.play();
+            }
             isAlive = false;
         }
         //Si el pajaro se sale del mundo(muere)

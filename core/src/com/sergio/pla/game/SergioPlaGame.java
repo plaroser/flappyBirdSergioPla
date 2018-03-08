@@ -24,7 +24,7 @@ public class SergioPlaGame extends Game {
     @Override
     public void create() {
         Gdx.app.log("Juego", "Juego creado!");
-        Assetloader.load();
+        Assetloader.load(callBack);
         setScreen(new GameScreen(callBack));
     }
 
