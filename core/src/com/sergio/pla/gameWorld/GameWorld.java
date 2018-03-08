@@ -19,6 +19,7 @@ public class GameWorld {
     private Rectangle ground;
     private int score = 0;
     private int midPointY;
+    private boolean hasSound;
 
     /**
      * Todos los posibles estados del juego
@@ -79,8 +80,9 @@ public class GameWorld {
         //Si el pajaro esta vivo y colisiona
         if (bird.isAlive() && scrollHandler.collides(bird)) {
             scrollHandler.stop();
-            if (Assetloader.prefs.getBoolean(Assetloader.SOUND)) {
+            if (Assetloader.prefs.getBoolean(Assetloader.SOUND)&&!hasSound) {
                 Assetloader.dead.play();
+                hasSound = true;
             }
             isAlive = false;
         }
@@ -150,6 +152,7 @@ public class GameWorld {
      * Inicia el juego
      */
     public void start() {
+        hasSound = false;
         Gdx.app.log("Juego", "iniciado");
         currentState = GameState.RUNNING;
     }
@@ -168,7 +171,7 @@ public class GameWorld {
      */
     public void restart() {
         Gdx.app.log("Juego", "preparado");
-
+        hasSound=false;
         currentState = GameState.READY;
         score = 0;
         bird.onRestart(midPointY - 5);
