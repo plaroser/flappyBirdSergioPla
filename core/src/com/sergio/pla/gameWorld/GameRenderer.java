@@ -74,7 +74,10 @@ public class GameRenderer {
         scroller = myWorld.getScroller();
         frontGrass = scroller.getFrontGrass();
         backGrass = scroller.getBackGrass();
-        pipes = new Pipe[]{scroller.getPipe1(),scroller.getPipe2(),scroller.getPipe3()};
+        pipes = new Pipe[scroller.pipesLength()];
+        for (int i = 0;i<scroller.pipesLength();i++){
+            pipes[i]=scroller.getPipe(i);
+        }
 
     }
 

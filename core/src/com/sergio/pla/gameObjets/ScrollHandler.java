@@ -12,7 +12,7 @@ import com.sergio.pla.gameWorld.GameWorld;
  */
 public class ScrollHandler {
     private Grass frontGrass, backGrass;
-    private Pipe pipe1, pipe2, pipe3;
+    private Pipe[] pipes;
     public static final int SCROLL_SPEED = -59;
     public static final int PIPE_GAP = 49;
     private GameWorld gameWorld;
@@ -29,9 +29,12 @@ public class ScrollHandler {
         backGrass = new Grass(frontGrass.getTailX(), yPos, 143, 11,
                 SCROLL_SPEED);
 
-        pipe1 = new Pipe(210, 0, 22, 60, SCROLL_SPEED, yPos);
-        pipe2 = new Pipe(pipe1.getTailX() + PIPE_GAP, 0, 22, 70, SCROLL_SPEED, yPos);
-        pipe3 = new Pipe(pipe2.getTailX() + PIPE_GAP, 0, 22, 60, SCROLL_SPEED, yPos);
+        pipes = new Pipe[3];
+
+        pipes[0] = new Pipe(210, 0, 22, 60, SCROLL_SPEED, yPos);
+        pipes[1] = new Pipe(pipes[0].getTailX() + PIPE_GAP, 0, 22, 70, SCROLL_SPEED, yPos);
+        pipes[2] = new Pipe(pipes[1].getTailX() + PIPE_GAP, 0, 22, 60, SCROLL_SPEED, yPos);
+
     }
 
     /**
@@ -43,18 +46,20 @@ public class ScrollHandler {
         // Actualiza todos los objetos
         frontGrass.update(delta);
         backGrass.update(delta);
-        pipe1.update(delta);
-        pipe2.update(delta);
-        pipe3.update(delta);
+
+        for (Pipe pipe : pipes) {
+            pipe.update(delta);
+        }
+
 
         // Verifique si alguna de las tuberías se desplaza hacia la izquierda y reinicia en este caso
-        if (pipe1.isScrolledLeft()) {
-            pipe1.reset(pipe3.getTailX() + PIPE_GAP);
-        } else if (pipe2.isScrolledLeft()) {
-            pipe2.reset(pipe1.getTailX() + PIPE_GAP);
+        if (pipes[0].isScrolledLeft()) {
+            pipes[0].reset(pipes[2].getTailX() + PIPE_GAP);
+        } else if (pipes[1].isScrolledLeft()) {
+            pipes[1].reset(pipes[1].getTailX() + PIPE_GAP);
 
-        } else if (pipe3.isScrolledLeft()) {
-            pipe3.reset(pipe2.getTailX() + PIPE_GAP);
+        } else if (pipes[2].isScrolledLeft()) {
+            pipes[2].reset(pipes[1].getTailX() + PIPE_GAP);
         }
 
         // Lo mismo con la hierba
@@ -84,32 +89,17 @@ public class ScrollHandler {
         return backGrass;
     }
 
-    /**
-     * Debuelve el tubo1
-     *
-     * @return Tubo1
-     */
-    public Pipe getPipe1() {
-        return pipe1;
+    public int pipesLength(){
+        return pipes.length;
     }
 
-    /**
-     * Devuelve el tubo2
-     *
-     * @return Tubo2
-     */
-    public Pipe getPipe2() {
-        return pipe2;
+    public Pipe getPipe(int i) {
+        if (i >= 0 && i < pipes.length) {
+            return pipes[i];
+        }
+        return null;
     }
 
-    /**
-     * Devuelve el tubo3
-     *
-     * @return Tubo3
-     */
-    public Pipe getPipe3() {
-        return pipe3;
-    }
 
     /**
      * Para el juego completamente
@@ -117,9 +107,10 @@ public class ScrollHandler {
     public void stop() {
         frontGrass.stop();
         backGrass.stop();
-        pipe1.stop();
-        pipe2.stop();
-        pipe3.stop();
+
+        for (Pipe pipe : pipes) {
+            pipe.stop();
+        }
     }
 
     /**
@@ -129,34 +120,23 @@ public class ScrollHandler {
      * @return Si ha colisionado
      */
     public boolean collides(Bird bird) {
-        if (!pipe1.isScored()
-                && pipe1.getX() + (pipe1.getWidth() / 2) < bird.getX()
-                + bird.getWidth()) {
-            addScore(1);
-            pipe1.setScored(true);
-            if (Assetloader.prefs.getBoolean(Assetloader.SOUND)) {
-                Assetloader.coin.play();
+        for (Pipe pipe : pipes) {
+            if (!pipe.isScored()
+                    && pipe.getX() + (pipe.getWidth() / 2) < bird.getX()
+                    + bird.getWidth()) {
+                addScore(1);
+                pipe.setScored(true);
+                if (Assetloader.prefs.getBoolean(Assetloader.SOUND)) {
+                    Assetloader.coin.play();
+                }
             }
-        } else if (!pipe2.isScored()
-                && pipe2.getX() + (pipe2.getWidth() / 2) < bird.getX()
-                + bird.getWidth()) {
-            addScore(1);
-            pipe2.setScored(true);
-            if (Assetloader.prefs.getBoolean(Assetloader.SOUND)) {
-                Assetloader.coin.play();
-            }
-
-        } else if (!pipe3.isScored()
-                && pipe3.getX() + (pipe3.getWidth() / 2) < bird.getX()
-                + bird.getWidth()) {
-            addScore(1);
-            pipe3.setScored(true);
-            if (Assetloader.prefs.getBoolean(Assetloader.SOUND)) {
-                Assetloader.coin.play();
-            }
-
         }
-        return (pipe1.collides(bird) || pipe2.collides(bird) || pipe3.collides(bird));
+
+        boolean collides = false;
+        for (Pipe pipe : pipes) {
+            collides = collides || pipe.collides(bird);
+        }
+        return collides;
     }
 
     /**
@@ -174,8 +154,8 @@ public class ScrollHandler {
     public void onRestart() {
         frontGrass.onRestart(0, SCROLL_SPEED);
         backGrass.onRestart(frontGrass.getTailX(), SCROLL_SPEED);
-        pipe1.onRestart(210, SCROLL_SPEED);
-        pipe2.onRestart(pipe1.getTailX() + PIPE_GAP, SCROLL_SPEED);
-        pipe3.onRestart(pipe2.getTailX() + PIPE_GAP, SCROLL_SPEED);
+        pipes[0].onRestart(210, SCROLL_SPEED);
+        pipes[1].onRestart(pipes[0].getTailX() + PIPE_GAP, SCROLL_SPEED);
+        pipes[2].onRestart(pipes[1].getTailX() + PIPE_GAP, SCROLL_SPEED);
     }
 }
