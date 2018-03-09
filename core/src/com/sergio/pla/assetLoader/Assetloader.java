@@ -40,6 +40,7 @@ public class Assetloader {
             prefs.putInteger("highScore", 0);
         }
         prefs.putBoolean(SOUND, callBack.isSound());
+        prefs.flush();
 
         Gdx.app.log("Pref", "Sonido activado en callBack: " + callBack.isSound());
         Gdx.app.log("Pref", "Sonido activado en gdx: " + prefs.getBoolean(SOUND));
