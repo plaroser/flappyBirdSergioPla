@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
         editTextPuntuacionMaxima = findViewById(R.id.editTextPuntuacionMaxima);
         toggleButtonSonido = findViewById(R.id.toggleButtonSonido);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
+        editTextPuntuacionMaxima.setKeyListener(null);
         editTextPuntuacionMaxima.setText(String.valueOf(getHighScore()));
 
         if (prefs.contains(PREF_SOUND)) {
