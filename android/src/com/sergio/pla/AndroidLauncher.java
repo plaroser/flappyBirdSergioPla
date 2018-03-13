@@ -20,7 +20,7 @@ import static com.sergio.pla.dataBase.FeedReaderDbHelper.COLUMN_NAME_SCORE;
 import static com.sergio.pla.dataBase.FeedReaderDbHelper.TABLE_NAME;
 
 public class AndroidLauncher extends AndroidApplication implements GameCallBack {
-    private final Intent intentVolverAAndroid = new Intent(this, MainActivity.class);
+    private Intent intentVolverAAndroid;
     private boolean isSound;
     private FeedReaderDbHelper mDbHelper;
     private SQLiteDatabase db;
@@ -34,6 +34,7 @@ public class AndroidLauncher extends AndroidApplication implements GameCallBack 
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
         initialize(new SergioPlaGame(this), config);
         Gdx.app.log("Pref", "Sound is " + isSound);
+        intentVolverAAndroid = new Intent(this, MainActivity.class);
     }
 
     @Override

@@ -10,9 +10,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ToggleButton;
 
 import com.sergio.pla.dataBase.FeedReaderDbHelper;
@@ -22,9 +22,9 @@ import static com.sergio.pla.dataBase.FeedReaderDbHelper.TABLE_NAME;
 public class MainActivity extends Activity {
     public static final String PREF_SOUND = "sonido";
 
-    private final Intent i = new Intent(this, AndroidLauncher.class);
 
-    private Button button1;
+    private Intent i;
+    private ImageButton button1;
     private EditText editTextPuntuacionMaxima;
     private ToggleButton toggleButtonSonido;
     private SharedPreferences.Editor editor;
@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editTextPuntuacionMaxima.setKeyListener(null);
         editTextPuntuacionMaxima.setText(String.valueOf(getHighScore()));
-
+        i = new Intent(this, AndroidLauncher.class);
         if (prefs.contains(PREF_SOUND)) {
             haySonido = prefs.getBoolean(PREF_SOUND, false);
             toggleButtonSonido.setChecked(haySonido);
