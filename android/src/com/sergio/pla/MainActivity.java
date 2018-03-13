@@ -1,6 +1,8 @@
 package com.sergio.pla;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -44,11 +46,7 @@ public class MainActivity extends Activity {
         if (prefs.contains(PREF_SOUND)) {
             haySonido = prefs.getBoolean(PREF_SOUND, false);
             toggleButtonSonido.setChecked(haySonido);
-        } /*else {
-            editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
-            editor.putBoolean(PREF_SOUND, toggleButtonSonido.isChecked());
-            editor.apply();
-        }*/
+        }
 
         final Intent i = new Intent(this, AndroidLauncher.class);
 
@@ -66,6 +64,27 @@ public class MainActivity extends Activity {
                 startActivity(i);
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setMessage(R.string.quieres_salir);
+        builder.setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //si el usuario presionó "sí", entonces se le permite salir de la aplicación
+                finish();
+            }
+        });
+        builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     public int getHighScore() {

@@ -2,5 +2,9 @@
 <resources>
 
     <string name="app_name">Sergio Pla Game</string>
+    <string name="quieres_salir">¿Quieres salir?</string>
+    <string name="si">Si</string>
+    <string name="no">No</string>
+    <string name="iniciar_juego">Iniciar el juego</string>
 
 </resources>
