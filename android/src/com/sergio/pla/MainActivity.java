@@ -22,6 +22,8 @@ import static com.sergio.pla.dataBase.FeedReaderDbHelper.TABLE_NAME;
 public class MainActivity extends Activity {
     public static final String PREF_SOUND = "sonido";
 
+    private final Intent i = new Intent(this, AndroidLauncher.class);
+
     private Button button1;
     private EditText editTextPuntuacionMaxima;
     private ToggleButton toggleButtonSonido;
@@ -48,7 +50,6 @@ public class MainActivity extends Activity {
             toggleButtonSonido.setChecked(haySonido);
         }
 
-        final Intent i = new Intent(this, AndroidLauncher.class);
 
         toggleButtonSonido.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -65,6 +66,7 @@ public class MainActivity extends Activity {
             }
         });
     }
+
     @Override
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -87,6 +89,11 @@ public class MainActivity extends Activity {
         alert.show();
     }
 
+    /**
+     * Devuelve la puntuacion maxima registrada
+     *
+     * @return puntuacion máxima
+     */
     public int getHighScore() {
         db = mDbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);

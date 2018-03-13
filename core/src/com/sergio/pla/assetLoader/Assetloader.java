@@ -37,7 +37,7 @@ public class Assetloader {
         texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         prefs = Gdx.app.getPreferences("SergioGame");
         if (!prefs.contains("highScore")) {
-            prefs.putInteger("highScore", 0);
+            prefs.putInteger("highScore", callBack.getHighScore());
         }
         prefs.putBoolean(SOUND, callBack.isSound());
         prefs.flush();

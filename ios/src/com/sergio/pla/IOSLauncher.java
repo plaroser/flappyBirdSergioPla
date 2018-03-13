@@ -22,7 +22,7 @@ public class IOSLauncher extends IOSApplication.Delegate implements GameCallBack
     }
 
     @Override
-    public void callBackAndroid() {
+    public void callBack() {
         new ExceptionInInitializerError();
     }
 
