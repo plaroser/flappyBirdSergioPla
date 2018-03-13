@@ -22,12 +22,22 @@ public class IOSLauncher extends IOSApplication.Delegate implements GameCallBack
     }
 
     @Override
-    public void callBack() {
+    public void callBackAndroid() {
         new ExceptionInInitializerError();
     }
 
     @Override
     public boolean isSound() {
         return false;
+    }
+
+    @Override
+    public void setHighScore(int score) {
+        
+    }
+
+    @Override
+    public int getHighScore() {
+        return 0;
     }
 }
