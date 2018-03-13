@@ -87,6 +87,7 @@ public class Assetloader {
         flap.dispose();
         dead.dispose();
         fontText.dispose();
+        kill.dispose();
     }
 
     /**
