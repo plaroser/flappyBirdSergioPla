@@ -59,12 +59,12 @@ public class GameScreen implements Screen {
     @Override
     public void hide() {
         Gdx.app.log("Juego", "hide()");
-        callBack.callBack();
-        callBack.setHighScore(Assetloader.getHighScore());
+        Gdx.app.exit();
     }
 
     @Override
     public void pause() {
+        callBack.setHighScore(Assetloader.getHighScore());
         Gdx.app.log("Juego", "pause()");
     }
 
