@@ -8,5 +8,7 @@
     <string name="iniciar_juego">Iniciar el juego</string>
     <string name="sonido">Sonido</string>
     <string name="puntuacion_maxima">Máxima puntuación</string>
+    <string name="segurisimo">Segurísimo</string>
+    <string name="no_tanto">No tanto</string>
 
 </resources>

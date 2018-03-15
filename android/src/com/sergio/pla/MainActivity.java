@@ -2,7 +2,7 @@ package com.sergio.pla;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -11,9 +11,11 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.sergio.pla.dataBase.FeedReaderDbHelper;
@@ -33,6 +35,7 @@ public class MainActivity extends Activity {
 
     private FeedReaderDbHelper mDbHelper;
     private SQLiteDatabase db;
+    private AlertDialog alert;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,20 @@ public class MainActivity extends Activity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editTextPuntuacionMaxima.setKeyListener(null);
         editTextPuntuacionMaxima.setText(String.valueOf(getHighScore()));
+
+        /*builder.setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //si el usuario presionó "sí", entonces se le permite salir de la aplicación
+                finish();
+            }
+        });*/
+      /*  builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });*/
         i = new Intent(this, AndroidLauncher.class);
         if (prefs.contains(PREF_SOUND)) {
             haySonido = prefs.getBoolean(PREF_SOUND, false);
@@ -73,22 +90,23 @@ public class MainActivity extends Activity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
         builder.setCancelable(false);
-        builder.setView(inflater.inflate(R.layout.dialog_exit,null));
-        builder.setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
+        builder.setView(inflater.inflate(R.layout.dialog_exit, null));
+        alert = builder.create();
+        alert.show();
+        Button buttonSi = alert.findViewById(R.id.buttonSi);
+        Button buttonNo = alert.findViewById(R.id.buttonNo);
+        buttonSi.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //si el usuario presionó "sí", entonces se le permite salir de la aplicación
+            public void onClick(View view) {
                 finish();
             }
         });
-        builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+        buttonNo.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
+            public void onClick(View view) {
+                alert.cancel();
             }
         });
-        AlertDialog alert = builder.create();
-        alert.show();
     }
 
     /**
