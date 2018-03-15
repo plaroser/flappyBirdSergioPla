@@ -25,7 +25,6 @@ import static com.sergio.pla.dataBase.FeedReaderDbHelper.TABLE_NAME;
 public class MainActivity extends Activity {
     public static final String PREF_SOUND = "sonido";
 
-
     private Intent i;
     private ImageButton button1;
     private EditText editTextPuntuacionMaxima;
@@ -49,19 +48,6 @@ public class MainActivity extends Activity {
         editTextPuntuacionMaxima.setKeyListener(null);
         editTextPuntuacionMaxima.setText(String.valueOf(getHighScore()));
 
-        /*builder.setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //si el usuario presionó "sí", entonces se le permite salir de la aplicación
-                finish();
-            }
-        });*/
-      /*  builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });*/
         i = new Intent(this, AndroidLauncher.class);
         if (prefs.contains(PREF_SOUND)) {
             haySonido = prefs.getBoolean(PREF_SOUND, false);
