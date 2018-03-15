@@ -175,6 +175,7 @@ public class GameWorld {
      */
     public void restart() {
         Gdx.app.log("Juego", "preparado");
+        Assetloader.kill.stop();
         hasSound=false;
         currentState = GameState.READY;
         score = 0;

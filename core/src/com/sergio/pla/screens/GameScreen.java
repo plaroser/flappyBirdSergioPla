@@ -65,6 +65,7 @@ public class GameScreen implements Screen {
     @Override
     public void pause() {
         callBack.setHighScore(Assetloader.getHighScore());
+        Assetloader.kill.stop();
         Gdx.app.log("Juego", "pause()");
     }
 
