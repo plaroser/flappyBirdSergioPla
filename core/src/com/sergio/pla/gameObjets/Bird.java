@@ -57,18 +57,25 @@ public class Bird {
         position.add(velocity.cpy().scl(delta));
 
         if (velocity.y < 0) {
-            rotation -= 600 * delta;
-            if (rotation < -20) {
-                rotation = -20;
-            }
+
         }
 
         if (isFalling() || !isAlive()) {
-            rotation += 480 * delta;
-            if (rotation > 90) {
-                rotation = 90;
+            rotation += 280 * delta;
+            if (!isAlive()) {
+                if (rotation > 90) {
+                    rotation = 90;
+                }
+            }else{
+                if (rotation > 20) {
+                    rotation = 20;
+                }
             }
-
+        } else {
+            rotation -= 380 * delta;
+            if (rotation < -20) {
+                rotation = -20;
+            }
         }
     }
 
@@ -135,7 +142,7 @@ public class Bird {
      * @return Esta cayendo
      */
     public boolean isFalling() {
-        return velocity.y > 110;
+        return velocity.y > 20;
     }
 
     /**
